@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on: [push, pull_request]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_HUB_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_TOKEN}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build image
+        run: |
+          docker build -t johnlondon/serverless-build-image .
+      - if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        name: Publish on master branch only
+        run: |
+          docker push johnlondon/serverless-build-image
