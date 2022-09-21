@@ -15,6 +15,8 @@ RUN apt-get update \
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
 ENV PATH=$PATH:/root/.local/bin:/root/.cargo/bin
+RUN rustup install stable \
+    && rustup default stable
 RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | bash
 
 ENTRYPOINT ["serverless"]
