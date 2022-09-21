@@ -11,11 +11,10 @@ RUN apt-get update \
     && apt-get install -y make curl \
     && apt-get clean \
     && pip install pipx \
-    && pipx ensurepath \
     && pipx install awscli
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
-ENV PATH=$PATH:/root/.cargo/bin
+ENV PATH=$PATH:/root/.local/bin:/root/.cargo/bin
 RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | bash
 
 ENTRYPOINT ["serverless"]
