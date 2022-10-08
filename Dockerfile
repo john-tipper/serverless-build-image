@@ -8,7 +8,7 @@ LABEL "com.github.actions.color"="red"
 RUN npm i -g serverless@3.x @serverless/compose
 
 RUN apt-get update \
-    && apt-get install -y build-essential curl jq \
+    && apt-get install -y build-essential curl jq zip \
     && apt-get clean \
     && pip install pipx \
     && pipx install awscli
